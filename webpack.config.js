@@ -1,14 +1,16 @@
 const path = require("path");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
-const HtmlWebpackPlugin = require("html-webpack-plugin"); // Add this line
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+const { PurgeCSSPlugin } = require("purgecss-webpack-plugin");
+const glob = require("glob");
 
 module.exports = {
-  entry: "./src/main.js",
+  entry: "./src/js/scripts.js",
   output: {
-    filename: "main.min.js",
+    filename: "scripts.min.js",
     path: path.resolve(__dirname, "dist"),
-    clean: true, // Optional: cleans dist folder before build
+    clean: true,
   },
   module: {
     rules: [
@@ -30,13 +32,16 @@ module.exports = {
       filename: "about.html",
       minify: true,
     }),
+    new PurgeCSSPlugin({
+      paths: glob.sync(`${path.join(__dirname, "src")}/**/*`, { nodir: true }),
+      safelist: {
+        standard: [/^col-/, /^row-/, /^container/, /^g-/, /^btn/, /^navbar/],
+      },
+    }),
   ],
   optimization: {
     minimize: true,
-    minimizer: [
-      `...`, // keep existing minimizers (like Terser for JS)
-      new CssMinimizerPlugin(),
-    ],
+    minimizer: [`...`, new CssMinimizerPlugin()],
   },
   mode: "production",
 };
