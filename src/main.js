@@ -1,6 +1,8 @@
 // This is the main JavaScript file for the website.
 // It contains the logic and functionality of the site.
 
+import "./styles.css";
+
 document.addEventListener("DOMContentLoaded", () => {
   // Try to get the element with id 'greeting'
   const greetingElement = document.getElementById("greeting");
