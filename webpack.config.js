@@ -4,11 +4,25 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 const { PurgeCSSPlugin } = require("purgecss-webpack-plugin");
 const glob = require("glob");
+const CopyWebpackPlugin = require("copy-webpack-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
+
+const htmlPages = ["index", "about", "post", "contact"];
+const htmlPlugins = htmlPages.map(
+  (page) =>
+    new HtmlWebpackPlugin({
+      template: `./src/${page}.html`,
+      filename: `${page}.html`,
+      minify: page !== "index",
+    })
+);
 
 module.exports = {
-  entry: "./src/js/scripts.js",
+  entry: {
+    main: "./src/js/scripts.js",
+  },
   output: {
-    filename: "scripts.min.js",
+    filename: "[name].[contenthash].min.js",
     path: path.resolve(__dirname, "dist"),
     clean: true,
   },
@@ -18,30 +32,41 @@ module.exports = {
         test: /\.css$/,
         use: [MiniCssExtractPlugin.loader, "css-loader"],
       },
+      {
+        test: /\.(png|jpe?g|gif|svg|ico|woff2?|eot|ttf|otf)$/i,
+        type: "asset/resource",
+      },
     ],
   },
   plugins: [
-    new MiniCssExtractPlugin({ filename: "styles.min.css" }),
-    new HtmlWebpackPlugin({
-      template: "./src/index.html",
-      filename: "index.html",
-      minify: true,
-    }),
-    new HtmlWebpackPlugin({
-      template: "./src/about.html",
-      filename: "about.html",
-      minify: true,
-    }),
+    new MiniCssExtractPlugin({ filename: "styles.[contenthash].min.css" }),
+    ...htmlPlugins,
     new PurgeCSSPlugin({
       paths: glob.sync(`${path.join(__dirname, "src")}/**/*`, { nodir: true }),
       safelist: {
         standard: [/^col-/, /^row-/, /^container/, /^g-/, /^btn/, /^navbar/],
       },
     }),
+    new CopyWebpackPlugin({
+      patterns: [{ from: "src/assets/favicon.ico", to: "assets/favicon.ico" }],
+    }),
   ],
   optimization: {
     minimize: true,
-    minimizer: [`...`, new CssMinimizerPlugin()],
+    minimizer: [
+      new TerserPlugin({
+        extractComments: false,
+        terserOptions: {
+          format: { comments: false },
+        },
+      }),
+      new CssMinimizerPlugin(),
+    ],
+    splitChunks: { chunks: "all" },
   },
-  mode: "production",
+  resolve: {
+    extensions: [".js", ".css"],
+  },
+  devtool: "source-map",
+  mode: process.env.NODE_ENV || "production",
 };

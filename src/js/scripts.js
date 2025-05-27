@@ -3,6 +3,9 @@
  * Copyright 2013-2023 Start Bootstrap
  * Licensed under MIT (https://github.com/StartBootstrap/startbootstrap-clean-blog/blob/master/LICENSE)
  */
+
+import Collapse from "bootstrap/js/dist/collapse";
+import Dropdown from "bootstrap/js/dist/dropdown";
 import "../css/styles.css";
 
 window.addEventListener("DOMContentLoaded", () => {

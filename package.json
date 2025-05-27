@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "babel-loader": "^8.0.0",
+    "copy-webpack-plugin": "^13.0.0",
     "copyfiles": "^2.4.1",
     "css-loader": "^5.0.0",
     "css-minimizer-webpack-plugin": "^7.0.2",
@@ -19,12 +20,12 @@
     "html-webpack-plugin": "^5.6.3",
     "mini-css-extract-plugin": "^1.6.2",
     "purgecss-webpack-plugin": "^7.0.2",
-    "replace-in-file": "^8.3.0",
     "sass": "^1.89.0",
     "sass-loader": "^16.0.5",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^5.0.0",
     "webpack": "^5.99.9",
+    "webpack-bundle-analyzer": "^4.10.2",
     "webpack-cli": "^4.10.0",
     "webpack-dev-server": "^5.2.1"
   },
