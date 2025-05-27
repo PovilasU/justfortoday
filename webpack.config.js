@@ -50,6 +50,11 @@ module.exports = {
     new CopyWebpackPlugin({
       patterns: [{ from: "src/assets/favicon.ico", to: "assets/favicon.ico" }],
     }),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: "src/assets", to: "assets" }, // Moves the entire assets folder to dist/assets
+      ],
+    }),
   ],
   optimization: {
     minimize: true,
