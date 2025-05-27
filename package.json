@@ -5,18 +5,20 @@
   "main": "dist/index.html",
   "scripts": {
     "build": "webpack --mode production",
-    "start": "webpack serve --mode development"
+    "start": "webpack serve --mode development",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist"
   },
-  "dependencies": {},
   "devDependencies": {
-    "webpack": "^5.0.0",
-    "webpack-cli": "^4.0.0",
-    "webpack-dev-server": "^3.0.0",
-    "css-loader": "^5.0.0",
-    "style-loader": "^2.0.0",
     "babel-loader": "^8.0.0",
+    "css-loader": "^5.0.0",
+    "gh-pages": "^6.3.0",
+    "mini-css-extract-plugin": "^1.0.0",
+    "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^5.0.0",
-    "mini-css-extract-plugin": "^1.0.0"
+    "webpack": "^5.99.9",
+    "webpack-cli": "^4.10.0",
+    "webpack-dev-server": "^3.0.0"
   },
   "author": "",
   "license": "ISC"
