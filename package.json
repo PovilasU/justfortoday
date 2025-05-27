@@ -2,16 +2,13 @@
   "name": "Tik siandien",
   "version": "1.0.0",
   "description": "A simple website project with minimized code for production.",
-  "main": "dist/index.html","scripts": {
-    "build": "webpack --mode production",
-    "copy-html": "copyfiles -f src/*.html dist/",
-    "fix-html": "replace-in-file styles.css styles.min.css dist/*.html && replace-in-file main.js main.min.js dist/*.html",
-    "postbuild": "npm run copy-html && npm run fix-html",
-    "watch": "webpack --mode development --watch",
-    "start": "webpack serve --mode development",
-    "predeploy": "npm run build",
-    "deploy": "gh-pages -d dist"
-  },
+"scripts": {
+  "build": "webpack --mode production",
+  "watch": "webpack --mode development --watch",
+  "start": "webpack serve --mode development",
+  "predeploy": "npm run build",
+  "deploy": "gh-pages -d dist"
+},
   "devDependencies": {
     "babel-loader": "^8.0.0",
     "copyfiles": "^2.4.1",
