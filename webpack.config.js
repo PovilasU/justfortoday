@@ -7,7 +7,7 @@ const glob = require("glob");
 const CopyWebpackPlugin = require("copy-webpack-plugin");
 const TerserPlugin = require("terser-webpack-plugin");
 
-const htmlPages = ["index", "about", "post", "contact"];
+const htmlPages = ["index", "about", "post", "contact", "todo", "help"];
 const htmlPlugins = htmlPages.map(
   (page) =>
     new HtmlWebpackPlugin({
